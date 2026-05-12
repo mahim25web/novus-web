@@ -31,7 +31,54 @@
         /* --- Navigation --- */
         nav { background: var(--white); padding: 1rem 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .nav-content { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        /* Logo with subtle neon glow */
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            position: relative;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            /* base glow */
+            text-shadow: 0 0 6px rgba(26,115,232,0.8), 0 0 12px rgba(26,115,232,0.6);
+        }
+        /* soft radial glow behind the logo */
+        .logo::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 140%;
+            height: 120%;
+            background: radial-gradient(circle at center, rgba(26,115,232,0.25), rgba(26,115,232,0.08) 40%, transparent 60%);
+            filter: blur(12px);
+            border-radius: 8px;
+            z-index: -1;
+            opacity: 0.9;
+            transition: var(--transition);
+            pointer-events: none;
+        }
+        /* animated pulsing neon effect */
+        .logo.glow { animation: neon 2.8s ease-in-out infinite; }
+        @keyframes neon {
+            0% {
+                text-shadow: 0 0 6px rgba(26,115,232,0.6), 0 0 12px rgba(26,115,232,0.4), 0 0 24px rgba(26,115,232,0.2);
+                transform: translateY(0);
+                opacity: 0.95;
+            }
+            50% {
+                text-shadow: 0 0 14px rgba(26,115,232,0.95), 0 0 28px rgba(26,115,232,0.75), 0 0 56px rgba(26,115,232,0.45);
+                transform: translateY(-2px);
+                opacity: 1;
+            }
+            100% {
+                text-shadow: 0 0 6px rgba(26,115,232,0.6), 0 0 12px rgba(26,115,232,0.4), 0 0 24px rgba(26,115,232,0.2);
+                transform: translateY(0);
+                opacity: 0.95;
+            }
+        }
         .nav-links a { margin-left: 25px; text-decoration: none; color: var(--text-dark); font-weight: 500; cursor: pointer; }
 
         /* --- Sections Visibility --- */
@@ -71,8 +118,8 @@
 <body>
 
     <nav>
-        <div class="container nav-content">
-            <div class="logo">NOVUS</div>
+            <div class="container nav-content">
+            <div class="logo glow">NOVUS</div>
             <div class="nav-links">
                 <a onclick="showSection('home')">Home</a>
                 <a onclick="showSection('login')" id="navLoginBtn">Login</a>
@@ -86,7 +133,7 @@
         <div class="hero">
             <div class="container">
                 <h1>Welcome to Novus</h1>
-                <p>Your complete online learning platform</p><br>
+                <p><b>From Basic to Brilliance</b></p><br>
                 <button class="btn btn-primary" onclick="showSection('login')">Student Login</button>
             </div>
         </div>
@@ -112,21 +159,21 @@
             <h2 class="section-title">Our Leadership</h2>
             <div class="grid" style="max-width: 800px; margin: 0 auto 50px;">
                 <div class="profile-card">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" class="profile-img">
+                    <img src="assect/mehedi.jpeg" class="profile-img">
                     <div class="profile-info">
-                        <h3>Mahim</h3>
+                        <h3>Md. Rubaiat Haque</h3>
                         <span>Founder & CEO</span>
-                        <p>Leading the vision of digital education in Bangladesh.</p>
-                        <div class="social-links"><a href="#"><i class="fab fa-linkedin"></i></a></div>
+                        <p>University of London</p>
+                       
                     </div>
                 </div>
                 <div class="profile-card">
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400" class="profile-img">
+                    <img src="assect/ratul2.jpeg" class="profile-img">
                     <div class="profile-info">
-                        <h3>Co-Founder Name</h3>
-                        <span>Co-Founder & CTO</span>
-                        <p>Specialist in educational technology and systems.</p>
-                        <div class="social-links"><a href="#"><i class="fab fa-github"></i></a></div>
+                        <h3>Saif Mahmud Ratul</h3>
+                        <span>Founder & Co-CEO</span>
+                        <p>Patuakhali Science and Technology University</p>
+                        
                     </div>
                 </div>
             </div>
@@ -195,7 +242,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Novus | Designed by Mahim</p>
+            <p>&copy; 2026 Novus | Designed & Developed by Mahim</p>
         </div>
     </footer>
 
