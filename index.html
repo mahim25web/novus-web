@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Novus | Student Portal</title>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -21,170 +19,64 @@
             --transition: all 0.3s ease;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background-color: var(--secondary);
-            color: var(--text-dark);
-            line-height: 1.6;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--secondary); color: var(--text-dark); line-height: 1.6; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
         /* --- Components --- */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
-            text-decoration: none;
-            display: inline-block;
-        }
-
+        .btn { padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; transition: var(--transition); text-decoration: none; display: inline-block; }
         .btn-primary { background: var(--primary); color: white; }
         .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
-        
-        .btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
-        .btn-outline:hover { background: var(--primary); color: white; }
 
         /* --- Navigation --- */
-        nav {
-            background: var(--white);
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .nav-links a {
-            margin-left: 25px;
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-        }
+        nav { background: var(--white); padding: 1rem 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .nav-links a { margin-left: 25px; text-decoration: none; color: var(--text-dark); font-weight: 500; cursor: pointer; }
 
         /* --- Sections Visibility --- */
-        .page-section { display: none; min-height: 80vh; padding: 60px 0; }
+        .page-section { display: none; min-height: 80vh; padding: 40px 0; }
         .active { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- Hero Section --- */
-        .hero {
-            text-align: center;
-            padding: 100px 20px;
-            background: linear-gradient(135deg, #ffffff 0%, #e8f0fe 100%);
-        }
-
+        /* --- Hero --- */
+        .hero { text-align: center; padding: 80px 20px; background: linear-gradient(135deg, #ffffff 0%, #e8f0fe 100%); }
         .hero h1 { font-size: 3rem; margin-bottom: 20px; color: var(--primary-dark); }
-        .hero p { font-size: 1.2rem; color: var(--text-light); margin-bottom: 30px; }
 
-        /* --- Features & Dashboard Cards --- */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
+        /* --- Grids --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin: 40px 0; }
+        .section-title { text-align: center; margin: 60px 0 30px; color: var(--primary-dark); font-size: 2rem; }
 
-        .card {
-            background: var(--white);
-            padding: 40px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: var(--transition);
-            cursor: pointer;
-            border: 1px solid transparent;
-        }
+        /* --- Cards --- */
+        .card, .profile-card { background: var(--white); border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: var(--transition); cursor: pointer; overflow: hidden; border: 1px solid #eee; }
+        .card:hover, .profile-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .card { padding: 40px; }
+        .card i { font-size: 3rem; color: var(--primary); margin-bottom: 20px; }
 
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 15px 40px rgba(26, 115, 232, 0.1);
-        }
+        /* --- Profiles --- */
+        .profile-img { width: 100%; height: 250px; object-fit: cover; background: #ddd; }
+        .profile-info { padding: 20px; }
+        .profile-info span { display: block; color: var(--primary); font-weight: 700; margin-bottom: 10px; }
+        .social-links a { color: var(--primary); margin: 0 10px; font-size: 1.2rem; }
 
-        .card i {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
+        /* --- Forms --- */
+        .login-box { max-width: 400px; margin: 40px auto; background: var(--white); padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; margin-top: 8px; }
+        .error-msg { color: var(--error); display: none; margin-bottom: 15px; }
 
-        /* --- Login Form --- */
-        .login-box {
-            max-width: 400px;
-            margin: 0 auto;
-            background: var(--white);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            outline: none;
-        }
-
-        .error-msg { color: var(--error); font-size: 0.9rem; display: none; margin-bottom: 15px; }
-
-        /* --- Footer --- */
-        footer {
-            background: var(--white);
-            padding: 40px 0;
-            text-align: center;
-            border-top: 1px solid #eee;
-            margin-top: 50px;
-        }
-
-        /* --- Mobile Responsive --- */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .nav-links { display: none; } /* Simplified for demo */
-        }
+        footer { background: var(--white); padding: 40px 0; text-align: center; border-top: 1px solid #eee; margin-top: 50px; }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
     <nav>
         <div class="container nav-content">
             <div class="logo">NOVUS</div>
             <div class="nav-links">
-                <a href="#" onclick="showSection('home')">Home</a>
-                <a href="#" onclick="showSection('login')" id="navLoginBtn">Login</a>
-                <a href="#" onclick="logout()" id="logoutBtn" style="display:none">Logout</a>
+                <a onclick="showSection('home')">Home</a>
+                <a onclick="showSection('login')" id="navLoginBtn">Login</a>
+                <a onclick="logout()" id="logoutBtn" style="display:none">Logout</a>
             </div>
         </div>
     </nav>
@@ -194,150 +86,140 @@
         <div class="hero">
             <div class="container">
                 <h1>Welcome to Novus</h1>
-                <p>Your complete online learning platform for excellence.</p>
+                <p>Your complete online learning platform</p><br>
                 <button class="btn btn-primary" onclick="showSection('login')">Student Login</button>
             </div>
         </div>
 
         <div class="container">
-            <h2 style="text-align:center; margin-top: 60px;">Our Features</h2>
+            <!-- Features -->
             <div class="grid">
                 <div class="card">
                     <i class="fas fa-video"></i>
                     <h3>Live Classes</h3>
-                    <p>Real-time interactive sessions with experts.</p>
                 </div>
                 <div class="card">
                     <i class="fas fa-file-alt"></i>
                     <h3>Quiz Exams</h3>
-                    <p>Test your knowledge with timed assessments.</p>
                 </div>
                 <div class="card">
                     <i class="fas fa-play-circle"></i>
                     <h3>Recorded Classes</h3>
-                    <p>Access our library of lessons anytime.</p>
+                </div>
+            </div>
+
+            <!-- Leadership -->
+            <h2 class="section-title">Our Leadership</h2>
+            <div class="grid" style="max-width: 800px; margin: 0 auto 50px;">
+                <div class="profile-card">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" class="profile-img">
+                    <div class="profile-info">
+                        <h3>Mahim</h3>
+                        <span>Founder & CEO</span>
+                        <p>Leading the vision of digital education in Bangladesh.</p>
+                        <div class="social-links"><a href="#"><i class="fab fa-linkedin"></i></a></div>
+                    </div>
+                </div>
+                <div class="profile-card">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400" class="profile-img">
+                    <div class="profile-info">
+                        <h3>Co-Founder Name</h3>
+                        <span>Co-Founder & CTO</span>
+                        <p>Specialist in educational technology and systems.</p>
+                        <div class="social-links"><a href="#"><i class="fab fa-github"></i></a></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teachers -->
+            <h2 class="section-title">Meet Our Faculty</h2>
+            <div class="grid">
+                <div class="profile-card">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400" class="profile-img">
+                    <div class="profile-info"><h3>Dr. Sarah</h3><span>Math Expert</span></div>
+                </div>
+                <div class="profile-card">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400" class="profile-img">
+                    <div class="profile-info"><h3>Prof. Ahmed</h3><span>Physics Instructor</span></div>
+                </div>
+                <div class="profile-card">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400" class="profile-img">
+                    <div class="profile-info"><h3>Ms. Emily</h3><span>CSE Specialist</span></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Login Page -->
+    <!-- Login -->
     <section id="login" class="page-section">
-        <div class="container">
+        <div class="container" style="text-align: center;">
             <div class="login-box">
-                <h2 style="margin-bottom: 20px; text-align: center;">Login</h2>
+                <h2>Portal Login</h2>
                 <div id="loginError" class="error-msg">Invalid Credentials!</div>
                 <div class="form-group">
-                    <label>User ID</label>
-                    <input type="text" id="userId" placeholder="Enter ID">
+                    <label>ID</label>
+                    <input type="text" id="userId" placeholder="student123 or admin">
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" id="password" placeholder="Enter Password">
+                    <input type="password" id="password" placeholder="123456 or admin123">
                 </div>
-                <button class="btn btn-primary" style="width: 100%" onclick="handleLogin()">Login</button>
+                <button class="btn btn-primary" style="width:100%" onclick="handleLogin()">Login</button>
             </div>
         </div>
     </section>
 
-    <!-- Student Dashboard -->
+    <!-- Dashboards -->
     <section id="studentDashboard" class="page-section">
         <div class="container">
             <h1 id="welcomeUser">Welcome, Student</h1>
             <div class="grid">
-                <div class="card" onclick="openLink('quiz')">
-                    <i class="fas fa-clipboard-list"></i>
-                    <h3>Quiz Exams</h3>
-                </div>
-                <div class="card" onclick="openLink('live')">
-                    <i class="fas fa-video"></i>
-                    <h3>Join Live Class</h3>
-                </div>
-                <div class="card" onclick="openLink('recorded')">
-                    <i class="fas fa-folder-open"></i>
-                    <h3>Recorded Classes</h3>
-                </div>
+                <div class="card" onclick="openLink('quiz')"><i class="fas fa-clipboard-list"></i><h3>Quiz Exams</h3></div>
+                <div class="card" onclick="openLink('live')"><i class="fas fa-video"></i><h3>Join Live Class</h3></div>
+                <div class="card" onclick="openLink('recorded')"><i class="fas fa-folder-open"></i><h3>Recorded Classes</h3></div>
             </div>
         </div>
     </section>
 
-    <!-- Admin Dashboard -->
     <section id="adminDashboard" class="page-section">
         <div class="container">
-            <h1>Admin Management</h1>
-            <div class="login-box" style="max-width: 600px; margin-top: 30px;">
-                <div class="form-group">
-                    <label>Manage Quiz Link</label>
-                    <input type="text" id="editQuiz" value="">
-                </div>
-                <div class="form-group">
-                    <label>Manage Meet Link</label>
-                    <input type="text" id="editLive" value="">
-                </div>
-                <div class="form-group">
-                    <label>Manage Drive Link</label>
-                    <input type="text" id="editRecorded" value="">
-                </div>
-                <button class="btn btn-primary" onclick="updateLinks()">Update All Links</button>
+            <h1>Admin Panel</h1>
+            <div class="login-box" style="max-width: 600px;">
+                <div class="form-group"><label>Quiz Link</label><input type="text" id="editQuiz"></div>
+                <div class="form-group"><label>Meet Link</label><input type="text" id="editLive"></div>
+                <div class="form-group"><label>Drive Link</label><input type="text" id="editRecorded"></div>
+                <button class="btn btn-primary" onclick="updateLinks()">Update Links</button>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
-            <p><strong>Contact:</strong> support@novus-edu.com | +1 234 567 890</p>
-            <p>&copy; 2026 Novus Education Portal. All rights reserved.</p>
+            <p>&copy; 2026 Novus | Designed by Mahim</p>
         </div>
     </footer>
 
     <script>
-        // --- 1. CONFIGURATION (Change your links here) ---
-        let portalLinks = {
-            quiz: "https://forms.google.com/your-form-link",
-            live: "https://meet.google.com/your-meet-link",
-            recorded: "https://drive.google.com/your-drive-link"
-        };
+        let portalLinks = { quiz: "#", live: "#", recorded: "#" };
 
-        // --- 2. NAVIGATION LOGIC ---
-        function showSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('.page-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            // Show requested section
-            document.getElementById(sectionId).classList.add('active');
-            window.scrollTo(0,0);
+        function showSection(id) {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
         }
 
-        // --- 3. LOGIN LOGIC ---
         function handleLogin() {
             const id = document.getElementById('userId').value;
-            const pass = document.getElementById('password').value;
-            const error = document.getElementById('loginError');
-
-            if (id === 'student123' && pass === '123456') {
-                loginSuccess('studentDashboard', 'Welcome, Student');
-            } else if (id === 'admin' && pass === 'admin123') {
-                // Pre-fill admin inputs
-                document.getElementById('editQuiz').value = portalLinks.quiz;
-                document.getElementById('editLive').value = portalLinks.live;
-                document.getElementById('editRecorded').value = portalLinks.recorded;
-                loginSuccess('adminDashboard', 'Admin Panel');
-            } else {
-                error.style.display = 'block';
-            }
+            const ps = document.getElementById('password').value;
+            if(id === 'student123' && ps === '123456') loginUI('studentDashboard', 'Welcome, Student');
+            else if(id === 'admin' && ps === 'admin123') loginUI('adminDashboard', 'Admin Panel');
+            else document.getElementById('loginError').style.display = 'block';
         }
 
-        function loginSuccess(target, message) {
-            document.getElementById('welcomeUser').innerText = message;
+        function loginUI(target, msg) {
+            document.getElementById('welcomeUser').innerText = msg;
             document.getElementById('navLoginBtn').style.display = 'none';
             document.getElementById('logoutBtn').style.display = 'inline-block';
             showSection(target);
-            // Clear inputs
-            document.getElementById('userId').value = '';
-            document.getElementById('password').value = '';
-            document.getElementById('loginError').style.display = 'none';
         }
 
         function logout() {
@@ -346,16 +228,12 @@
             showSection('home');
         }
 
-        // --- 4. LINK MANAGEMENT ---
-        function openLink(type) {
-            window.open(portalLinks[type], '_blank');
-        }
-
+        function openLink(t) { window.open(portalLinks[t], '_blank'); }
         function updateLinks() {
             portalLinks.quiz = document.getElementById('editQuiz').value;
             portalLinks.live = document.getElementById('editLive').value;
             portalLinks.recorded = document.getElementById('editRecorded').value;
-            alert('Links updated successfully!');
+            alert('Links Saved!');
         }
     </script>
 </body>
