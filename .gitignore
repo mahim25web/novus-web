@@ -1,0 +1,16 @@
+# Ignore OS files
+Thumbs.db
+ehthumbs.db
+
+# VSCode
+.vscode/
+
+# Node
+node_modules/
+
+# Logs
+*.log
+
+# Build outputs
+dist/
+build/
