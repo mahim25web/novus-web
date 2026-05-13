@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Novus | Student Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -12,74 +12,67 @@
             --primary: #1a73e8;
             --primary-dark: #1557b0;
             --secondary: #f8f9fa;
+            --bg-card: #ffffff;
             --text-dark: #202124;
             --text-light: #5f6368;
+            --border: #eeeeee;
             --white: #ffffff;
             --error: #d93025;
             --transition: all 0.3s ease;
         }
 
+        /* --- Dark Mode Styles --- */
+        body.dark-mode {
+            --secondary: #121212;
+            --bg-card: #1e1e1e;
+            --text-dark: #e8eaed;
+            --text-light: #9aa0a6;
+            --border: #333333;
+            --white: #1e1e1e;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--secondary); color: var(--text-dark); line-height: 1.6; }
+        body { background-color: var(--secondary); color: var(--text-dark); line-height: 1.6; transition: var(--transition); }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-        /* --- Components --- */
-        .btn { padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; transition: var(--transition); text-decoration: none; display: inline-block; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
-
         /* --- Navigation --- */
-        nav { background: var(--white); padding: 1rem 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        nav { background: var(--bg-card); padding: 1rem 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
         .nav-content { display: flex; justify-content: space-between; align-items: center; }
-        /* Logo with subtle neon glow */
+        
         .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            position: relative;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: var(--transition);
-            /* base glow */
-            text-shadow: 0 0 6px rgba(26,115,232,0.8), 0 0 12px rgba(26,115,232,0.6);
+            font-size: 1.5rem; font-weight: 800; color: var(--primary);
+            position: relative; letter-spacing: 1px; text-transform: uppercase;
+            text-shadow: 0 0 6px rgba(26,115,232,0.8);
         }
-        /* soft radial glow behind the logo */
-        .logo::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 140%;
-            height: 120%;
-            background: radial-gradient(circle at center, rgba(26,115,232,0.25), rgba(26,115,232,0.08) 40%, transparent 60%);
-            filter: blur(12px);
-            border-radius: 8px;
-            z-index: -1;
-            opacity: 0.9;
-            transition: var(--transition);
-            pointer-events: none;
-        }
-        /* animated pulsing neon effect */
         .logo.glow { animation: neon 2.8s ease-in-out infinite; }
         @keyframes neon {
-            0% {
-                text-shadow: 0 0 6px rgba(26,115,232,0.6), 0 0 12px rgba(26,115,232,0.4), 0 0 24px rgba(26,115,232,0.2);
-                transform: translateY(0);
-                opacity: 0.95;
-            }
-            50% {
-                text-shadow: 0 0 14px rgba(26,115,232,0.95), 0 0 28px rgba(26,115,232,0.75), 0 0 56px rgba(26,115,232,0.45);
-                transform: translateY(-2px);
-                opacity: 1;
-            }
-            100% {
-                text-shadow: 0 0 6px rgba(26,115,232,0.6), 0 0 12px rgba(26,115,232,0.4), 0 0 24px rgba(26,115,232,0.2);
-                transform: translateY(0);
-                opacity: 0.95;
-            }
+            0%, 100% { text-shadow: 0 0 6px rgba(26,115,232,0.6); transform: translateY(0); }
+            50% { text-shadow: 0 0 14px rgba(26,115,232,0.95); transform: translateY(-2px); }
         }
-        .nav-links a { margin-left: 25px; text-decoration: none; color: var(--text-dark); font-weight: 500; cursor: pointer; }
+
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 500; cursor: pointer; transition: 0.2s; }
+        .nav-links a.nav-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, #ff5f6d 0%, #ffc371 100%);
+            box-shadow: 0 12px 25px rgba(255,95,109,0.18);
+        }
+        .nav-links a.nav-btn.login-btn { background: linear-gradient(135deg, #34d399 0%, #06b6d4 100%); }
+        .nav-links a.nav-btn:hover { transform: translateY(-1px); box-shadow: 0 14px 28px rgba(0,0,0,0.18); }
+        .theme-toggle { cursor: pointer; font-size: 1.2rem; color: var(--text-dark); }
+
+        /* --- Notice Board --- */
+        .notice-container {
+            background: #fff8e1; border-left: 5px solid #ffc107; padding: 15px;
+            border-radius: 8px; margin-bottom: 30px; display: flex; align-items: center; gap: 15px;
+        }
+        body.dark-mode .notice-container { background: #2d2716; color: #ffe082; }
 
         /* --- Sections Visibility --- */
         .page-section { display: none; min-height: 80vh; padding: 40px 0; }
@@ -87,43 +80,44 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- Hero --- */
-        .hero { text-align: center; padding: 80px 20px; background: linear-gradient(135deg, #ffffff 0%, #e8f0fe 100%); }
-        .hero h1 { font-size: 3rem; margin-bottom: 20px; color: var(--primary-dark); }
+        .hero { text-align: center; padding: 80px 20px; background: linear-gradient(135deg, var(--white) 0%, #e8f0fe 100%); }
+        body.dark-mode .hero { background: linear-gradient(135deg, #1e1e1e 0%, #121212 100%); }
 
-        /* --- Grids --- */
+        /* --- Grids & Cards --- */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin: 40px 0; }
-        .section-title { text-align: center; margin: 60px 0 30px; color: var(--primary-dark); font-size: 2rem; }
-
-        /* --- Cards --- */
-        .card, .profile-card { background: var(--white); border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: var(--transition); cursor: pointer; overflow: hidden; border: 1px solid #eee; }
+        .card, .profile-card { background: var(--bg-card); border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: var(--transition); border: 1px solid var(--border); overflow: hidden; }
         .card:hover, .profile-card:hover { transform: translateY(-10px); border-color: var(--primary); }
-        .card { padding: 40px; }
+        .card { padding: 40px; cursor: pointer; }
         .card i { font-size: 3rem; color: var(--primary); margin-bottom: 20px; }
 
-        /* --- Profiles --- */
         .profile-img { width: 100%; height: 250px; object-fit: cover; background: #ddd; }
         .profile-info { padding: 20px; }
+        .profile-info h3 { margin-bottom: 5px; color: var(--text-dark); }
         .profile-info span { display: block; color: var(--primary); font-weight: 700; margin-bottom: 10px; }
-        .social-links a { color: var(--primary); margin: 0 10px; font-size: 1.2rem; }
+        .profile-info p { font-size: 0.9rem; color: var(--text-light); }
 
-        /* --- Forms --- */
-        .login-box { max-width: 400px; margin: 40px auto; background: var(--white); padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        /* --- UI Elements --- */
+        .btn { padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; transition: var(--transition); }
+        .btn-primary { background: var(--primary); color: white; }
+        .login-box { max-width: 400px; margin: 40px auto; background: var(--bg-card); padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 1px solid var(--border); }
         .form-group { margin-bottom: 20px; text-align: left; }
-        .form-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; margin-top: 8px; }
-        .error-msg { color: var(--error); display: none; margin-bottom: 15px; }
-
-        footer { background: var(--white); padding: 40px 0; text-align: center; border-top: 1px solid #eee; margin-top: 50px; }
+        input, textarea { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 6px; margin-top: 8px; background: var(--bg-card); color: var(--text-dark); }
+        
+        footer { background: var(--bg-card); padding: 40px 0; text-align: center; border-top: 1px solid var(--border); margin-top: 50px; }
     </style>
 </head>
-<body>
+<body id="mainBody">
 
     <nav>
-            <div class="container nav-content">
+        <div class="container nav-content">
             <div class="logo glow">NOVUS</div>
-            <div class="nav-links">
-                <a onclick="showSection('home')">Home</a>
-                <a onclick="showSection('login')" id="navLoginBtn">Login</a>
-                <a onclick="logout()" id="logoutBtn" style="display:none">Logout</a>
+            <div class="nav-right">
+                <div class="theme-toggle" onclick="toggleDarkMode()"><i id="themeIcon" class="fas fa-moon"></i></div>
+                <div class="nav-links">
+                    <a class="nav-btn" onclick="showSection('home')">Home</a>
+                    <a class="nav-btn login-btn" onclick="showSection('login')" id="navLoginBtn">Login</a>
+                    <a onclick="logout()" id="logoutBtn" style="display:none">Logout</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -139,61 +133,40 @@
         </div>
 
         <div class="container">
-            <!-- Features -->
             <div class="grid">
-                <div class="card">
-                    <i class="fas fa-video"></i>
-                    <h3>Live Classes</h3>
-                </div>
-                <div class="card">
-                    <i class="fas fa-file-alt"></i>
-                    <h3>Quiz Exams</h3>
-                </div>
-                <div class="card">
-                    <i class="fas fa-play-circle"></i>
-                    <h3>Recorded Classes</h3>
-                </div>
+                <div class="card"><i class="fas fa-video"></i><h3>Live Classes</h3></div>
+                <div class="card"><i class="fas fa-file-alt"></i><h3>Quiz Exams</h3></div>
+                <div class="card"><i class="fas fa-play-circle"></i><h3>Recorded Classes</h3></div>
             </div>
 
-            <!-- Leadership -->
-            <h2 class="section-title">Our Leadership</h2>
-            <div class="grid" style="max-width: 800px; margin: 0 auto 50px;">
+            <h2 style="text-align:center; margin-top:60px; color:var(--primary)">Our Leadership</h2>
+            <div class="grid" style="max-width: 800px; margin: 40px auto;">
                 <div class="profile-card">
                     <img src="assect/mehedi.jpeg" class="profile-img">
-                    <div class="profile-info">
-                        <h3>Md. Rubaiat Haque</h3>
-                        <span>Founder & CEO</span>
-                        <p>University of London</p>
-                       
-                    </div>
+                    <div class="profile-info"><h3>Md. Rubaiat Haque</h3><span>Founder & CEO</span><p>University of London</p></div>
                 </div>
                 <div class="profile-card">
-                    <img src="assect/ratul2.jpeg" class="profile-img">
-                    <div class="profile-info">
-                        <h3>Saif Mahmud Ratul</h3>
-                        <span>Founder & Co-CEO</span>
-                        <p>Patuakhali Science and Technology University</p>
-                        
-                    </div>
+                    <img src="assect/ratulfounder.jpeg" class="profile-img">
+                    <div class="profile-info"><h3>Saif Mahmud Ratul</h3><span>Founder & Co-CEO</span><p>Patuakhali Science and Technology University</p></div>
                 </div>
             </div>
 
-            <!-- Teachers -->
-            <h2 class="section-title">Meet Our Faculty</h2>
+            <h2 style="text-align:center; margin-top:60px; color:var(--primary)">Meet Our Faculty</h2>
             <div class="grid">
+                <!-- Mentors (Repeat this block for all your mentors) -->
                 <div class="profile-card">
                     <img src="assect/dmc1.jpeg" class="profile-img">
-                    <div class="profile-info"><h3>Sadman Khan</h3><span>Mentor (Biology & English) </span><p>Dhaka Medical College</p></div>
+                    <div class="profile-info"><h3>Sadman Khan</h3><span>Biology & English</span><p>Dhaka Medical College</p></div>
                 </div>
                 <div class="profile-card">
                     <img src="assect/hrik.jpeg" class="profile-img">
-                    <div class="profile-info"><h3>Shreyas Mandal Hrik</h3><span>Mentor (Math & Physics)</span><p>Chittagong University of Engineering & Technology (CUET)</p></div>
+                    <div class="profile-info"><h3>Shreyas Mandal Hrik</h3><span>Math & Physics</span><p>CUET</p></div>
                 </div>
                 <div class="profile-card">
-                    <img src="assect/bushra1.jpeg"  class="profile-img">
-                    <div class="profile-info"><h3>Aysha Siddika Bushra</h3><span>Mentor (Bangla & GK)</span><p>University of Dhaka</p></div>
+                    <img src="assect/bushra1.jpeg" class="profile-img">
+                    <div class="profile-info"><h3>Aysha Siddika Bushra</h3><span>Bangla & GK</span><p>University of Dhaka</p></div>
                 </div>
-                <div class="profile-card">
+                 <div class="profile-card">
                     <img src="assect/mubin.jpeg"  class="profile-img">
                     <div class="profile-info"><h3>JKM Mubin</h3><span>Mentor (Biology)</span><p>Shaheed Suhrawardy Medical College</p></div>
                 </div>
@@ -229,7 +202,7 @@
                     <img src="assect/mehedit.jpeg"  class="profile-img">
                     <div class="profile-info"><h3>Rubaiat Haque Mehedi</h3><span>Mentor (Bangla)</span><p>University of London</p></div>
                 </div>
-                
+                <!-- ... Add the rest of your mentors here using the same card structure ... -->
             </div>
         </div>
     </section>
@@ -239,7 +212,7 @@
         <div class="container" style="text-align: center;">
             <div class="login-box">
                 <h2>Portal Login</h2>
-                <div id="loginError" class="error-msg">Invalid Credentials!</div>
+                <div id="loginError" style="color:var(--error); display:none; margin:10px 0;">Invalid Credentials!</div>
                 <div class="form-group">
                     <label>ID</label>
                     <input type="text" id="userId" placeholder="student123 or admin">
@@ -253,10 +226,14 @@
         </div>
     </section>
 
-    <!-- Dashboards -->
+    <!-- Student Dashboard -->
     <section id="studentDashboard" class="page-section">
         <div class="container">
-            <h1 id="welcomeUser">Welcome, Student</h1>
+            <h1>Welcome, Student</h1>
+            <div class="notice-container">
+                <i class="fas fa-bullhorn" style="font-size:1.5rem; color:#ffc107;"></i>
+                <div id="displayNotice">Loading announcement...</div>
+            </div>
             <div class="grid">
                 <div class="card" onclick="openLink('quiz')"><i class="fas fa-clipboard-list"></i><h3>Quiz Exams</h3></div>
                 <div class="card" onclick="openLink('live')"><i class="fas fa-video"></i><h3>Join Live Class</h3></div>
@@ -265,14 +242,16 @@
         </div>
     </section>
 
+    <!-- Admin Panel -->
     <section id="adminDashboard" class="page-section">
         <div class="container">
-            <h1>Admin Panel</h1>
+            <h2>Admin Control Center</h2>
             <div class="login-box" style="max-width: 600px;">
+                <div class="form-group"><label>Portal Notice</label><textarea id="editNotice"></textarea></div>
                 <div class="form-group"><label>Quiz Link</label><input type="text" id="editQuiz"></div>
                 <div class="form-group"><label>Meet Link</label><input type="text" id="editLive"></div>
                 <div class="form-group"><label>Drive Link</label><input type="text" id="editRecorded"></div>
-                <button class="btn btn-primary" onclick="updateLinks()">Update Links</button>
+                <button class="btn btn-primary" onclick="updateLinks()">Save All Changes</button>
             </div>
         </div>
     </section>
@@ -284,23 +263,47 @@
     </footer>
 
     <script>
-        let portalLinks = { quiz: "#", live: "#", recorded: "#" };
+        // 1. Database Initialization (LocalStorage)
+        let db = JSON.parse(localStorage.getItem('novus_data')) || {
+            notice: "Welcome to Novus! Always check here for new updates.",
+            quiz: "#", live: "#", recorded: "#"
+        };
 
+        // 2. Theme Control
+        function toggleDarkMode() {
+            const body = document.getElementById('mainBody');
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            document.getElementById('themeIcon').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        if(localStorage.getItem('theme') === 'dark') {
+            document.getElementById('mainBody').classList.add('dark-mode');
+            document.getElementById('themeIcon').className = 'fas fa-sun';
+        }
+
+        // 3. Navigation & Login
         function showSection(id) {
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
+            if(id === 'studentDashboard') document.getElementById('displayNotice').innerText = db.notice;
         }
 
         function handleLogin() {
             const id = document.getElementById('userId').value;
             const ps = document.getElementById('password').value;
             if(id === 'student123' && ps === '123456') loginUI('studentDashboard', 'Welcome, Student');
-            else if(id === 'admin' && ps === 'admin123') loginUI('adminDashboard', 'Admin Panel');
-            else document.getElementById('loginError').style.display = 'block';
+            else if(id === 'admin' && ps === 'admin123') {
+                document.getElementById('editNotice').value = db.notice;
+                document.getElementById('editQuiz').value = db.quiz;
+                document.getElementById('editLive').value = db.live;
+                document.getElementById('editRecorded').value = db.recorded;
+                loginUI('adminDashboard', 'Admin Panel');
+            } else { document.getElementById('loginError').style.display = 'block'; }
         }
 
         function loginUI(target, msg) {
-            document.getElementById('welcomeUser').innerText = msg;
             document.getElementById('navLoginBtn').style.display = 'none';
             document.getElementById('logoutBtn').style.display = 'inline-block';
             showSection(target);
@@ -312,12 +315,16 @@
             showSection('home');
         }
 
-        function openLink(t) { window.open(portalLinks[t], '_blank'); }
+        // 4. Link & Data Management
+        function openLink(t) { window.open(db[t], '_blank'); }
+        
         function updateLinks() {
-            portalLinks.quiz = document.getElementById('editQuiz').value;
-            portalLinks.live = document.getElementById('editLive').value;
-            portalLinks.recorded = document.getElementById('editRecorded').value;
-            alert('Links Saved!');
+            db.notice = document.getElementById('editNotice').value;
+            db.quiz = document.getElementById('editQuiz').value;
+            db.live = document.getElementById('editLive').value;
+            db.recorded = document.getElementById('editRecorded').value;
+            localStorage.setItem('novus_data', JSON.stringify(db));
+            alert('Settings Saved Locally!');
         }
     </script>
 </body>
