@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Novus | Ultimate Student Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -66,11 +66,25 @@
         .profile-info h3 { margin-bottom: 5px; }
         .profile-info span { color: var(--primary); font-weight: 700; font-size: 0.9rem; }
 
+        /* --- UI Inputs & Buttons --- */
         .btn { padding: 12px 25px; border-radius: 8px; border: none; cursor: pointer; font-weight: 700; background: var(--primary); color: white; transition: 0.3s; }
         .btn:hover { background: var(--primary-dark); transform: scale(1.02); }
+        
+        .portal-input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-dark); transition: var(--transition); }
+        .portal-input:focus { outline: 2px solid var(--primary); }
 
         .notice-board { background: #fff8e1; border-left: 5px solid #ffc107; padding: 20px; border-radius: 10px; margin: 20px 0; }
         body.dark-mode .notice-board { background: #2d2716; color: #ffe082; }
+
+        /* --- Task Manager / To-Do Styles --- */
+        .todo-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 5px; border-bottom: 1px solid var(--border); transition: var(--transition); }
+        .todo-item.completed span { text-decoration: line-through; color: var(--text-light); }
+        .todo-btn { background: none; border: none; color: #ff4d4d; cursor: pointer; font-size: 1rem; padding: 0 5px; }
+
+        /* --- Routine Table Styles --- */
+        .routine-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; margin-top: 15px; }
+        .routine-table th { padding: 12px 10px; border-bottom: 2px solid var(--primary); color: var(--primary); }
+        .routine-table td { padding: 12px 10px; border-bottom: 1px solid var(--border); white-space: pre-line; }
 
         .page-section { display: none; padding: 40px 0; animation: fadeInUp 0.5s ease; }
         .active { display: block; }
@@ -168,7 +182,6 @@
                     <img src="assect/mehedit.jpeg"  class="profile-img">
                     <div class="profile-info"><h3>Rubaiat Haque Mehedi</h3><span>Mentor (Bangla)</span><p>University of London</p></div>
                 </div>
-                <!-- ... Add other mentors as needed ... -->
             </div>
         </div>
     </section>
@@ -220,6 +233,57 @@
                     <p style="font-size:0.8rem; color:var(--text-light)">Watch previous lectures</p>
                 </div>
             </div>
+
+            <!-- DASHBOARD UTILITIES (TODO & ROUTINE) -->
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); margin-top: 20px;">
+                <!-- Task Manager Widget -->
+                <div class="widget-card" style="text-align: left; height: fit-content;">
+                    <h4><i class="fas fa-tasks"></i> My Daily Tasks</h4>
+                    <div style="display: flex; gap: 10px; margin: 15px 0;">
+                        <input type="text" id="todoInput" placeholder="Add a new homework task..." style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-dark);">
+                        <button class="btn" onclick="addTodo()">Add</button>
+                    </div>
+                    <ul id="todoList" style="list-style: none; max-height: 200px; overflow-y: auto;">
+                        <!-- JS handles generation here -->
+                    </ul>
+                </div>
+
+                <!-- Dynamic Schedule Widget -->
+                <div class="widget-card" style="text-align: left; height: fit-content;">
+                    <h4><i class="fas fa-calendar-alt"></i> Weekly Routine</h4>
+                    <div style="overflow-x: auto;">
+                        <table class="routine-table">
+                            <thead>
+                                <tr>
+                                    <th>Batch / Days</th>
+                                    <th>Subject & Timing Info</th>
+                                </tr>
+                            </thead>
+                            <tbody id="routineTableBody">
+                                <!-- Generated Dynamically from admin data -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DYNAMIC RESOURCES & STUDY MATERIAL LINKS -->
+            <h3 style="margin-top: 50px; color:var(--primary)"><i class="fas fa-folder-open"></i> E-Learning Resources</h3>
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 20px;">
+                <div class="card" style="padding: 25px;" onclick="visit('notes')">
+                    <i class="fas fa-file-pdf" style="font-size: 2.2rem; color: #e53935; margin-bottom: 10px;"></i>
+                    <h4>Lecture Notes</h4>
+                </div>
+                <div class="card" style="padding: 25px;" onclick="visit('syllabus')">
+                    <i class="fas fa-book-open" style="font-size: 2.2rem; color: #43a047; margin-bottom: 10px;"></i>
+                    <h4>Exam Syllabus</h4>
+                </div>
+                <div class="card" style="padding: 25px;" onclick="visit('suggestions')">
+                    <i class="fas fa-lightbulb" style="font-size: 2.2rem; color: #ffb300; margin-bottom: 10px;"></i>
+                    <h4>Suggestion Sheets</h4>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -228,8 +292,8 @@
         <div class="container" style="max-width: 400px; text-align: center;">
             <div class="widget-card">
                 <h2>Login</h2><br>
-                <input type="text" id="uID" placeholder="Enter Your ID" style="width:100%; padding:12px; margin-bottom:10px; border-radius:8px; border:1px solid var(--border);">
-                <input type="password" id="uPass" placeholder="Enter Your Password" style="width:100%; padding:12px; margin-bottom:20px; border-radius:8px; border:1px solid var(--border);">
+                <input type="text" id="uID" placeholder="Enter Your ID" class="portal-input">
+                <input type="password" id="uPass" placeholder="Enter Your Password" class="portal-input">
                 <button class="btn" style="width:100%" onclick="handleLogin()">Sign In</button>
             </div>
         </div>
@@ -240,22 +304,44 @@
         <div class="container">
             <h2>Admin Control Panel</h2><br>
             <div class="widget-card" style="text-align: left; max-width: 700px; margin: 0 auto;">
+                
+                <h3 style="color: var(--primary); margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 5px;">Core Class & Portal Content</h3>
+                
                 <label>Notice Board Text</label>
-                <textarea id="setNotice" style="width:100%; height:60px; margin-bottom:15px; padding:10px; border-radius:8px; border:1px solid var(--border);"></textarea>
+                <textarea id="setNotice" class="portal-input" style="height:60px;"></textarea>
                 
                 <label>Live Class Link</label>
-                <input type="text" id="setLive" style="width:100%; padding:10px; margin-bottom:15px; border-radius:8px; border:1px solid var(--border);">
+                <input type="text" id="setLive" class="portal-input">
                 
                 <label>Quiz Link</label>
-                <input type="text" id="setQuiz" style="width:100%; padding:10px; margin-bottom:15px; border-radius:8px; border:1px solid var(--border);">
+                <input type="text" id="setQuiz" class="portal-input">
                 
                 <label>Recorded Drive Link</label>
-                <input type="text" id="setRecorded" style="width:100%; padding:10px; margin-bottom:15px; border-radius:8px; border:1px solid var(--border);">
+                <input type="text" id="setRecorded" class="portal-input">
 
                 <label>Set Next Live Class Time</label>
-                <input type="datetime-local" id="setNextClass" style="margin-bottom:20px; display:block; padding:10px; border-radius:8px; border:1px solid var(--border);">
+                <input type="datetime-local" id="setNextClass" class="portal-input" style="display:block; width: auto;">
+
+                <h3 style="color: var(--primary); margin: 25px 0 15px 0; border-bottom: 1px solid var(--border); padding-bottom: 5px;">Weekly Routine Schedule Configuration</h3>
                 
-                <button class="btn" style="width:100%" onclick="saveAdminData()">Update Portal Now</button>
+                <label>Routine Row 1 (e.g. Sat/Mon/Wed Schedule Details)</label>
+                <textarea id="setRoutineRow1" class="portal-input" style="height:70px;" placeholder="Line 1: Sat / Mon / Wed&#10;Line 2: Physics & Chemistry (07:30 PM) - Ratul & Safin"></textarea>
+                
+                <label>Routine Row 2 (e.g. Sun/Tue/Thu Schedule Details)</label>
+                <textarea id="setRoutineRow2" class="portal-input" style="height:70px;" placeholder="Line 1: Sun / Tue / Thu&#10;Line 2: Biology & English (08:00 PM) - Sadman & Tahmid"></textarea>
+
+                <h3 style="color: var(--primary); margin: 25px 0 15px 0; border-bottom: 1px solid var(--border); padding-bottom: 5px;">Resource & Download Link Setup</h3>
+                
+                <label>Lecture Notes Folder Link (Google Drive/Mega)</label>
+                <input type="text" id="setNotesLink" class="portal-input" placeholder="https://drive.google.com/...">
+                
+                <label>Exam Syllabus Link (PDF or Folder)</label>
+                <input type="text" id="setSyllabusLink" class="portal-input" placeholder="https://drive.google.com/...">
+                
+                <label>Suggestion Sheets Link</label>
+                <input type="text" id="setSuggestionsLink" class="portal-input" placeholder="https://drive.google.com/...">
+                
+                <button class="btn" style="width:100%; margin-top: 15px;" onclick="saveAdminData()">Update Portal Now</button>
             </div>
         </div>
     </section>
@@ -265,13 +351,17 @@
     </footer>
 
     <script>
-        // Data Store
-        let novus = JSON.parse(localStorage.getItem('novus_v2')) || {
+        // Updated Data Store Engine to encompass routine and resource states
+        let novus = JSON.parse(localStorage.getItem('novus_v3')) || {
             notice: "Welcome! Stay tuned for upcoming exam dates.",
             liveLink: "#", quizLink: "#", recordedLink: "#",
-            nextClass: "", watchedCount: 0
+            nextClass: "", watchedCount: 0,
+            routineRow1: "Sat / Mon / Wed\nPhysics & Chemistry (07:30 PM) - Ratul / Safin",
+            routineRow2: "Sun / Tue / Thu\nBiology & English (08:00 PM) - Sadman / Tahmid",
+            notesLink: "#", syllabusLink: "#", suggestionsLink: "#"
         };
 
+        let todos = JSON.parse(localStorage.getItem('novus_todos')) || [];
         let currentUser = null;
 
         function updateNavButtons() {
@@ -294,6 +384,26 @@
 
         function syncDashboard() {
             document.getElementById('displayNotice').innerText = novus.notice;
+            renderTodos();
+
+            // Render Dynamic Schedule Table Rows
+            const routineContainer = document.getElementById('routineTableBody');
+            if(routineContainer) {
+                const parts1 = novus.routineRow1.split('\n');
+                const parts2 = novus.routineRow2.split('\n');
+                
+                routineContainer.innerHTML = `
+                    <tr>
+                        <td style="font-weight: 600;">${parts1[0] || 'Schedule Row 1'}</td>
+                        <td>${parts1.slice(1).join('<br>')}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 600;">${parts2[0] || 'Schedule Row 2'}</td>
+                        <td>${parts2.slice(1).join('<br>')}</td>
+                    </tr>
+                `;
+            }
+
             // Progress Calculation (based on 30 total classes)
             const total = 30;
             let percent = Math.min((novus.watchedCount / total) * 100, 100);
@@ -310,7 +420,9 @@
                         const h = Math.floor(diff/(1000*60*60));
                         const m = Math.floor((diff%(1000*60*60))/(1000*60));
                         const s = Math.floor((diff%(1000*60))/1000);
-                        document.getElementById('classCountdown').innerText = `${h}:${m}:${s}`;
+                        
+                        document.getElementById('classCountdown').innerText = 
+                            `${h < 10 ? '0'+h : h}:${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
                         document.getElementById('countdownLabel').innerText = "Until Next Session";
                     } else {
                         document.getElementById('classCountdown').innerText = "LIVE NOW";
@@ -320,7 +432,7 @@
             }
         }
 
-        // Pomodoro Timer
+        /* --- Focus Timer System --- */
         let pTimer;
         let timeLeft = 1500;
         function togglePomodoro() {
@@ -332,7 +444,23 @@
                     let m = Math.floor(timeLeft/60);
                     let s = timeLeft%60;
                     document.getElementById('pomodoroTime').innerText = `${m}:${s < 10 ? '0'+s : s}`;
-                    if(timeLeft <= 0) { clearInterval(pTimer); alert("Study break time!"); }
+                    if(timeLeft <= 0) { 
+                        clearInterval(pTimer); 
+                        try {
+                            let context = new (window.AudioContext || window.webkitAudioContext)();
+                            let osc = context.createOscillator();
+                            osc.type = "sine";
+                            osc.frequency.value = 523.25; 
+                            osc.connect(context.destination);
+                            osc.start();
+                            setTimeout(() => osc.stop(), 1000);
+                        } catch(e) { console.log("Audio API context initialized errors."); }
+
+                        alert("Incredible Focus! Time to take a deserved study break."); 
+                        timeLeft = 1500;
+                        document.getElementById('pomodoroTime').innerText = "25:00";
+                        btn.innerText = "Start Session";
+                    }
                 }, 1000);
             } else {
                 clearInterval(pTimer);
@@ -340,6 +468,45 @@
             }
         }
 
+        /* --- Task Manager Logic --- */
+        function renderTodos() {
+            const list = document.getElementById('todoList');
+            if(!list) return;
+            list.innerHTML = todos.map((todo, index) => `
+                <li class="todo-item ${todo.completed ? 'completed' : ''}">
+                    <span onclick="toggleTodo(${index})" style="cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
+                        <i class="far ${todo.completed ? 'fa-check-circle' : 'fa-circle'}" style="color:var(--primary)"></i> 
+                        ${todo.text}
+                    </span>
+                    <button class="todo-btn" onclick="deleteTodo(${index})"><i class="fas fa-trash"></i></button>
+                </li>
+            `).join('');
+        }
+
+        function addTodo() {
+            const input = document.getElementById('todoInput');
+            if(!input || !input.value.trim()) return;
+            todos.push({ text: input.value.trim(), completed: false });
+            input.value = '';
+            saveTodos();
+        }
+
+        function toggleTodo(index) {
+            todos[index].completed = !todos[index].completed;
+            saveTodos();
+        }
+
+        function deleteTodo(index) {
+            todos.splice(index, 1);
+            saveTodos();
+        }
+
+        function saveTodos() {
+            localStorage.setItem('novus_todos', JSON.stringify(todos));
+            renderTodos();
+        }
+
+        /* --- Identity Management & Workflows --- */
         function handleLogin() {
             const u = document.getElementById('uID').value;
             const p = document.getElementById('uPass').value;
@@ -350,13 +517,23 @@
             } else if(u === 'admin' && p === 'admin123') {
                 currentUser = 'admin';
                 updateNavButtons();
+                
+                // Map out all active data variables to admin panels
                 document.getElementById('setNotice').value = novus.notice;
                 document.getElementById('setLive').value = novus.liveLink;
                 document.getElementById('setQuiz').value = novus.quizLink;
                 document.getElementById('setRecorded').value = novus.recordedLink;
+                document.getElementById('setNextClass').value = novus.nextClass;
+                
+                document.getElementById('setRoutineRow1').value = novus.routineRow1;
+                document.getElementById('setRoutineRow2').value = novus.routineRow2;
+                document.getElementById('setNotesLink').value = novus.notesLink;
+                document.getElementById('setSyllabusLink').value = novus.syllabusLink;
+                document.getElementById('setSuggestionsLink').value = novus.suggestionsLink;
+                
                 showSection('adminDashboard');
             } else {
-                alert('Invalid User');
+                alert('Invalid User Credentials');
             }
         }
 
@@ -374,12 +551,20 @@
             novus.quizLink = document.getElementById('setQuiz').value;
             novus.recordedLink = document.getElementById('setRecorded').value;
             novus.nextClass = document.getElementById('setNextClass').value;
-            localStorage.setItem('novus_v2', JSON.stringify(novus));
-            alert('Settings Saved!');
+            
+            // Collect structural schedule layouts and assets
+            novus.routineRow1 = document.getElementById('setRoutineRow1').value;
+            novus.routineRow2 = document.getElementById('setRoutineRow2').value;
+            novus.notesLink = document.getElementById('setNotesLink').value;
+            novus.syllabusLink = document.getElementById('setSyllabusLink').value;
+            novus.suggestionsLink = document.getElementById('setSuggestionsLink').value;
+
+            localStorage.setItem('novus_v3', JSON.stringify(novus));
+            alert('Settings Saved Successfully!');
         }
 
         function visit(type, count) {
-            if(count) { novus.watchedCount++; localStorage.setItem('novus_v2', JSON.stringify(novus)); }
+            if(count) { novus.watchedCount++; localStorage.setItem('novus_v3', JSON.stringify(novus)); }
             let link = novus[`${type}Link`];
             window.open(link === "#" ? "https://google.com" : link, '_blank');
         }
